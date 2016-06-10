@@ -74,7 +74,7 @@ class Ses
     public function getClient()
     {
         if (!$this->client) {
-            $this->client = SesClient::factory($this->helper->getClientConfig());
+            $this->client = SesClient::factory($this->helper->getAwsClientConfig());
         }
 
         return $this->client;

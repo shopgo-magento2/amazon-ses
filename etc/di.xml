@@ -6,6 +6,24 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="ShopGo\AmazonSes\Model\Config\SchemaLocator" type="ShopGo\AdvancedConfig\Model\Config\SchemaLocator">
+        <arguments>
+            <argument name="fileName" xsi:type="string">config.xsd</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ShopGo\AmazonSes\Model\Config\File" type="ShopGo\AdvancedConfig\Model\Config\File">
+        <arguments>
+            <argument name="schemaLocator" xsi:type="object">ShopGo\AmazonSes\Model\Config\SchemaLocator</argument>
+            <argument name="vendorConfigPath" xsi:type="string">vendor/shopgo/amazon-ses-config/</argument>
+            <argument name="varConfigPath" xsi:type="string">shopgo/amazon_ses/</argument>
+            <argument name="fileName" xsi:type="string">config.xml</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ShopGo\AmazonSes\Model\Config" type="ShopGo\AdvancedConfig\Model\Config">
+        <arguments>
+            <argument name="fileConfig" xsi:type="object">ShopGo\AmazonSes\Model\Config\File</argument>
+        </arguments>
+    </virtualType>
     <virtualType name="ShopGo\AmazonSes\Model\Logger\Handler\Base" type="ShopGo\Aws\Model\Logger\Handler\Base">
         <arguments>
             <argument name="logModulePath" xsi:type="string">aws/ses/</argument>
@@ -45,6 +63,7 @@
     </virtualType>
     <virtualType name="ShopGo\AmazonSes\Helper\Utility" type="ShopGo\Aws\Helper\Utility">
         <arguments>
+            <argument name="config" xsi:type="object">ShopGo\AmazonSes\Model\Config</argument>
             <argument name="logger" xsi:type="object">ShopGo\AmazonSes\Model\Logger</argument>
         </arguments>
     </virtualType>
@@ -53,4 +72,23 @@
             <argument name="utility" xsi:type="object">ShopGo\AmazonSes\Helper\Utility</argument>
         </arguments>
     </type>
+    <virtualType name="ShopGo\AmazonSes\Model\System\Config\Source\Region" type="ShopGo\Aws\Model\System\Config\Source\Region">
+        <arguments>
+            <argument name="helper" xsi:type="object">ShopGo\AmazonSes\Helper\Data</argument>
+            <argument name="defaultRegion" xsi:type="boolean">false</argument>
+            <argument name="serviceCode" xsi:type="string">email</argument>
+        </arguments>
+    </virtualType>
+    <type name="ShopGo\AmazonSes\Controller\Adminhtml\Ses\Config\Partition\RetrieveRegionList">
+        <arguments>
+            <argument name="region" xsi:type="object">ShopGo\AmazonSes\Model\System\Config\Source\Region</argument>
+        </arguments>
+    </type>
+    <virtualType name="ShopGo\AmazonSes\Block\Adminhtml\System\Config\Partition" type="ShopGo\Aws\Block\Adminhtml\System\Config\Partition">
+        <arguments>
+            <argument name="systemConfigSection" xsi:type="string">amazon_ses</argument>
+            <argument name="configFieldIdPrefix" xsi:type="string">amazon_ses_general</argument>
+            <argument name="regionListAjaxUrl" xsi:type="string">amazon/ses_config_partition/retrieveregionlist</argument>
+        </arguments>
+    </virtualType>
 </config>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © 2016 ShopGo. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="amazon_ses">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="general"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="general">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="1">
+                    <xs:element ref="partition"/>
+                    <xs:element ref="region"/>
+                </xs:choice>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="partition">
+        <xs:annotation>
+            <xs:documentation>
+                Partition Resource. Recursive complex type
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <xs:element name="region">
+        <xs:annotation>
+            <xs:documentation>
+                Region Resource. Recursive complex type
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+</xs:schema>

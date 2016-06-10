@@ -8,6 +8,8 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
     <module name="ShopGo_AmazonSes" setup_version="1.0.0">
         <sequence>
+            <module name="ShopGo_AdvancedConfig"/>
+            <module name="ShopGo_AdvancedLogger"/>
             <module name="ShopGo_Aws"/>
         </sequence>
     </module>
